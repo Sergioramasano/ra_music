@@ -1,0 +1,6 @@
+<button mat-stroked-button [matMenuTriggerFor]="animals" class="nav">Menu</button>
+
+<mat-menu #animals="matMenu">
+  <button mat-menu-item routerLink="/">Home</button>
+  <button mat-menu-item routerLink="about">About</button>
+</mat-menu>

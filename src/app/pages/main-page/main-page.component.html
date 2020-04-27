@@ -1,0 +1,33 @@
+<div id="wrapper" (keyup)="$event.keyCode == 13 ? onSubmit() : null">
+  <div>
+    <h1 class="glitch" data-text="RAmusic">RAmusic</h1>
+    <span class="sub">SERVICE</span>
+  </div>
+
+  <form [formGroup]="trackForm" (ngSubmit)="onSubmit()"  class="artist-form">
+    <!-- Make sure data-text equals the text you put inside the tags. -->
+    <mat-form-field class="example-full-width">
+      <input formControlName="trackName"  matInput placeholder="Find your song!">
+    </mat-form-field>
+    <button
+      mat-button
+      type="submit"
+      [disabled]="!trackForm.valid"
+    >
+      Search
+    </button>
+  </form>
+
+  <!--  Todo independence component-->
+  <ul>
+    <li *ngFor="let audio of audioSrc" (click)="play(audio['trackId'])">
+      <img [src]="audio['artworkUrl60']" alt="album_img">
+      <audio [src]="audio['previewUrl']" [id]="audio['trackId']" controls></audio>
+      <span>
+        {{audio['artistName']}} - {{audio['trackName']}}
+      </span>
+    </li>
+  </ul>
+</div>
+
+
