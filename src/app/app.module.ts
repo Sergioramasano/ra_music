@@ -14,6 +14,7 @@ import {MatInputModule} from "@angular/material/input";
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {NgxAudioPlayerModule} from "ngx-audio-player";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {HttpClientModule} from "@angular/common/http";
     MatInputModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxAudioPlayerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,29 +10,26 @@ import {Subscription} from "rxjs";
 })
 export class MainPageComponent implements OnInit, OnDestroy {
 
-  trackForm= this.fb.group({
+  trackForm = this.fb.group({
     trackName: ['']
   });
   audioSrc: [];
   sub: Subscription;
 
-  constructor(private getAuthor: GetAuthorService, private fb: FormBuilder) { }
+  constructor(private getAuthor: GetAuthorService, private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
 
   }
 
   onSubmit() {
-  this.sub = this.getAuthor.getSongByName(this.trackForm.value.trackName, '25').subscribe(res=>{
+    this.sub = this.getAuthor.getSongByName(this.trackForm.value.trackName, '25').subscribe(res => {
       this.audioSrc = res.results;
     })
   }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
-  }
-
-  play(id) {
-   const audio = document.getElementById(id);
-      audio.play()
   }
 }
