@@ -1,7 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GetAuthorService} from "../../services/get-author.service";
 import {FormBuilder} from "@angular/forms";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
+import {IAudio, IAudious} from "../../interfaces";
+import {select, Store} from "@ngrx/store";
+import {selectSongsList} from "../../store/selectors/audio.selectors";
+import {GetSongs, SongsActions} from "../../store/actions/audio.actions";
 
 @Component({
   selector: 'app-main-page',
@@ -13,10 +17,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
   trackForm = this.fb.group({
     trackName: ['']
   });
-  audioSrc: [];
+  audios: IAudious;
   sub: Subscription;
-
-  constructor(private getAuthor: GetAuthorService, private fb: FormBuilder) {
+  public songs$: Observable<IAudio[]> = this.store.pipe(select(selectSongsList));
+  constructor(private getAuthor: GetAuthorService, private fb: FormBuilder, private store: Store<IAudio[]>) {
   }
 
   ngOnInit(): void {
@@ -24,8 +28,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.sub = this.getAuthor.getSongByName(this.trackForm.value.trackName, '25').subscribe(res => {
-      this.audioSrc = res.results;
+    // this.sub = this.getAuthor.getSongByName(this.trackForm.value.trackName, '25').subscribe(res => {
+    //   this.audios = res.results;
+    // })
+    const songName = this.trackForm.value.trackName;
+    this.store.dispatch({
+      type: SongsActions.GetSongs,
+      payload: {songName, limit:'25'}
     })
   }
 

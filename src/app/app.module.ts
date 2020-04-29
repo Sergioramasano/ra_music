@@ -15,6 +15,12 @@ import { AboutPageComponent } from './pages/about-page/about-page.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {NgxAudioPlayerModule} from "ngx-audio-player";
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import {songsReducer} from "./store/reducers/audio.reducers";
+import {SongsEffects} from "./store/effects/audio.effects";
 
 @NgModule({
   declarations: [
@@ -35,6 +41,9 @@ import {NgxAudioPlayerModule} from "ngx-audio-player";
     ReactiveFormsModule,
     HttpClientModule,
     NgxAudioPlayerModule,
+    StoreModule.forRoot({songs: songsReducer}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([SongsEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

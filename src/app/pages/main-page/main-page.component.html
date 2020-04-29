@@ -20,7 +20,7 @@
 
   <!--  Todo independence component-->
   <ul>
-    <li *ngFor="let audio of audioSrc">
+    <li *ngFor="let audio of songs$ | async">
       <div class="img-wrap">
         <img [src]="audio['artworkUrl60']" alt="album_img">
         <span>{{audio['primaryGenreName']}}</span>
